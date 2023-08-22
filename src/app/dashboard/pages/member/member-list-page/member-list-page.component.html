@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-12 mt-5 d-flex flex-row-reverse">
+        <button type="button" class="btn btn-primary" (click)="goCreateMember()">
+            <fa-icon [icon]="faPlus"></fa-icon> <span class="ms-2">Crear
+                Socio</span>
+        </button>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12 mt-2">
+
+        <div class="row" d-flex flex-row>
+            <div class="col-6">
+                <div class="table-title">
+                    <h1 class="mt-2">Socios</h1>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+
+
+
+        </div>
+        <table class="table" aria-describedby="member list">
+
+            <thead>
+                <tr>
+                    <th scope="col">Nº Socio</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">NIF</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Dirreción</th>
+                    <th scope="col">Provincia</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of members">
+                    <th scope="row">{{member.memberShipNumber}}</th>
+                    <td>{{member.name}}</td>
+                    <td>{{member.nif}}</td>
+                    <td>{{member.brithdayDate}}</td>
+                    <td>{{member.email}}</td>
+                    <td>{{member.mobile}}</td>
+                    <td>{{member.address}}</td>
+                    <td>{{member.province}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
