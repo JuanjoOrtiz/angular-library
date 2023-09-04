@@ -1,1 +1,27 @@
-<p>register-page works!</p>
+<div class="container">
+    <div class="row w-50 no-gutters shadow-lg" d-flex>
+
+        <div class=" col-md-12 bg-white p-5">
+            <h4 class="pb-3 text-center">Registro</h4>
+            <div class="form-style">
+                <form>
+                    <div class="form-group pb-3">
+                        <input type="email" placeholder="userame" class="form-control" id="inputUsername"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group pb-3">
+                        <input type="password" placeholder="Password" class="form-control" id="iPassword">
+                    </div>
+
+                    <div class="pb-2">
+                        <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Submit</button>
+                    </div>
+                </form>
+                <div class="pt-4 text-center">
+                    ¿Ya tienes cuenta?<a routerLink="/auth/login">Logueate</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,16 +1,39 @@
 <div class="container">
-    <form class="login-form">
-        <h2>Login</h2>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" requiered>
+    <div class="row w-50 no-gutters shadow-lg" d-flex>
+
+        <div class=" col-md-12 bg-white p-5">
+            <h4 class="pb-3 text-center">Biblioteca</h4>
+            <div class="form-style">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group pb-3">
+                        <input type="email" placeholder="userame" class="form-control" id="userame"
+                            aria-describedby="username">
+                        <div class="form-text text-danger"
+                            *ngIf="loginFormControls['username'].invalid && (loginFormControls['username'].dirty || loginFormControls['username'].touched)">
+                            <ng-container *ngIf="loginFormControls['username'].errors?.['required']">
+                                Please enter your email.
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="form-group pb-3">
+                        <input type="password" placeholder="Password" class="form-control" id="iPassword">
+                    </div>
+                    <div class="form-text text-danger"
+                        *ngIf="loginFormControls['password'].invalid && (loginFormControls['password'].dirty || loginFormControls['password'].touched)">
+                        <ng-container *ngIf="loginFormControls['password'].errors?.['required']">
+                            Please enter your password.
+                        </ng-container>
+                    </div>
+
+                    <div class="pb-2">
+                        <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Submit</button>
+                    </div>
+                </form>
+                <div class="pt-4 text-center">
+                    ¿No tienes cuenta?<a routerLink="/auth/register">Registrate</a>
+                </div>
+            </div>
+
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password" requiered>
-        </div>
-        <div class="form-group">
-            <button type="submit">Entrar</button>
-        </div>
-    </form>
+    </div>
 </div>

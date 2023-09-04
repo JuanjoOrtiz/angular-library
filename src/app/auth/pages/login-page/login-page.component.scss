@@ -1,68 +1,47 @@
-// Define variables
-$primary-color: #007bff;
-$form-width: 500px;
+.container {
 
-
-
-
-.login-form {
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: $form-width;
-
-    h2 {
-        color: $primary-color;
-    }
-
-    .form-group {
-        margin: 10px 0;
-
-        label {
-            display: block;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            transition: border-color 0.3s;
-
-            &:focus {
-                border-color: $primary-color;
-            }
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: $primary-color;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-
-            &:hover {
-                background-color: darken($primary-color, 10%);
-            }
-        }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-
-// Media queries for responsiveness
-@media (min-width: 1200px) {
-    .login-form {
-        max-width: $form-width;
-    }
+.form-style input {
+    border: 0;
+    height: 50px;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 1px solid #ebebeb;
 }
 
-@media (max-width: 480px) {
-    .login-form {
-        max-width: 100%;
-    }
+.form-style input:focus {
+    border-bottom: 1px solid #007bff;
+    box-shadow: none;
+    outline: 0;
+    background-color: #ebebeb;
+}
+
+.sideline {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ccc;
+}
+
+button {
+    height: 50px;
+}
+
+.sideline:before,
+.sideline:after {
+    content: "";
+    border-top: 1px solid #ebebeb;
+    margin: 0 20px 0 0;
+    flex: 1 0 20px;
+}
+
+.sideline:after {
+    margin: 0 0 0 20px;
 }
