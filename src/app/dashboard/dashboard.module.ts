@@ -9,6 +9,7 @@ import { CreateMemberPageComponent } from './pages/member/create-member-page/cre
 import { LoanListPageComponent } from './pages/loan/loan-list-page/loan-list-page.component';
 import { BookListPageComponent } from './pages/book/book-list-page/book-list-page.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-l
     CommonModule,
     DashboardRoutingModule,
     FontAwesomeModule,
+    MaterialModule
   ]
 })
 export class DashboardModule { }
