@@ -10,6 +10,7 @@ import { LoanListPageComponent } from './pages/loan/loan-list-page/loan-list-pag
 import { BookListPageComponent } from './pages/book/book-list-page/book-list-page.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { MaterialModule } from '../material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    HttpClientModule,
     FontAwesomeModule,
     MaterialModule
   ]
