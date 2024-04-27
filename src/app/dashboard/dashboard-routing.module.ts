@@ -4,7 +4,8 @@ import { DashboardLayoutComponent } from './layout/dashboard-layout.component';
 import { BooksComponent } from './pages/books/books.component';
 
 const routes: Routes = [
-{path: '', component:DashboardLayoutComponent , children:[
+{path: '', component:DashboardLayoutComponent ,
+children:[
   {path: 'books', component:BooksComponent},
   {path:'**', redirectTo: 'books'}
 ]}
