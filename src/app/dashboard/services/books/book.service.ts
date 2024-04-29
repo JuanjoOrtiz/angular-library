@@ -14,7 +14,7 @@ export class BookService {
   http = inject(HttpClient);
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.baseUrl}/books/books`);
+    return this.http.get<Book[]>(`${this.baseUrl}/books`);
 
   }
 

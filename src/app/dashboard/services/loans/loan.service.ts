@@ -17,20 +17,20 @@ export class LoanService {
 
   }
 
-  getloanbyId(id: string): Observable<Loan> {
+  getLoanById(id: string): Observable<Loan> {
     return this.http.get<Loan>(`${this.baseUrl}/loans/${id}`);
   }
 
-  addBook(loan: Loan): Observable<Loan> {
+  addLoan(loan: Loan): Observable<Loan> {
     return this.http.post<Loan>(`${this.baseUrl}/loans`,loan);
   }
 
-  updateBook(loan: Loan): Observable<Loan> {
+  updateLoan(loan: Loan): Observable<Loan> {
     if (!loan.id) throw Error('Loan id is required');
-    return this.http.patch(`${this.baseUrl}/books/${loan.id}`, loan);
+    return this.http.patch(`${this.baseUrl}/loans/${loan.id}`, loan);
   }
 
-  deleteBook(id: string) {
-    return this.http.delete(`${this.baseUrl}/books/${id}`);
+  deleteLoan(id: string) {
+    return this.http.delete(`${this.baseUrl}/loans/${id}`);
   }
 }

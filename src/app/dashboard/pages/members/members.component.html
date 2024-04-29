@@ -1,1 +1,125 @@
-<p>members works!</p>
+<div class="card">
+  <p-toast></p-toast>
+  <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      </ng-template>
+
+  </p-toolbar>
+
+  <p-table
+      #dt
+      [value]="members"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['memberShipNumber', 'name', 'publicationDate','gender', 'editorial', 'shelf']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Listado de Socios</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+              <th pSortableColumn="NºSocio" id="memberShipNumber" style="min-width:15rem">NºSocio <p-sortIcon field="memberShipNumber"></p-sortIcon></th>
+
+              <th pSortableColumn="Nombre" id="name" style="min-width:15rem">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+
+              <th pSortableColumn="Nif" id="nif" style="min-width:15rem">Nif <p-sortIcon field="nif"></p-sortIcon></th>
+
+              <th pSortableColumn="Fecha de nacimiento" id="brithdayDate" style="min-width:15rem">Fecha de nacimiento<p-sortIcon field="brithdayDate"></p-sortIcon></th>
+
+              <th pSortableColumn="Teléfono movil" id="mobile" style="min-width:15rem">Teléfono movil<p-sortIcon field="mobile"></p-sortIcon></th>
+
+              <th pSortableColumn="Dirección" id="address" style="min-width:15rem">Dirección<p-sortIcon field="address"></p-sortIcon></th>
+
+              <th pSortableColumn="Email" id="email" style="min-width:15rem">Email<p-sortIcon field="email"></p-sortIcon></th>
+
+              <th pSortableColumn="Provincia" id="province" style="min-width:15rem">Provincia<p-sortIcon field="province"></p-sortIcon></th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-member>
+          <tr>
+              <td>{{ member.memberShipNumber }}</td>
+              <td>{{ member.name }}</td>
+              <td>{{ member.nif }}</td>
+              <td>{{ member.brithdayDate }}</td>
+              <td>{{ member.mobile }}</td>
+              <td>{{ member.address }}</td>
+              <td>{{ member.email }}</td>
+              <td>{{ member.province }}</td>
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-success mr-2" (click)="editMember(member)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-warning " (click)="deleteMember(member)"></button>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">Hay un total de  {{ members ? members.length : 0 }} Socios.</div>
+      </ng-template>
+  </p-table>
+</div>
+<p-dialog [(visible)]="memberDialog" [style]="{ width: '40%' }" header="Detalle del libro" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Nº de socio</label>
+      <input type="text" pInputText id="memberShipNumber" [(ngModel)]="member.memberShipNumber" required autofocus />
+      <small class="p-error" *ngIf="submitted && !member.memberShipNumber">El número de socio es requerido.</small>
+  </div>
+  <div class="field">
+    <label for="name">Nombre</label>
+    <input type="text" pInputText id="author" [(ngModel)]="member.name" required autofocus />
+    <small class="p-error" *ngIf="submitted && !member.name">El nombre es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Nif</label>
+  <input type="text" pInputText id="nif" [(ngModel)]="member.nif" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.nif">El nif es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Fecha de nacimiento</label>
+  <input type="text" pInputText id="brithdayDate" [(ngModel)]="member.brithdayDate" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.brithdayDate">la fecha de nacimiento es requerida.</small>
+</div>
+<div class="field">
+  <label for="name">Teléfono movil</label>
+  <input type="text" pInputText id="mobile" [(ngModel)]="member.mobile" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.mobile">El telefono movil es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Dirección</label>
+  <input type="text" pInputText id="address" [(ngModel)]="member.address" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.address">La dirección es requerida.</small>
+</div>
+<div class="field">
+  <label for="name">Email</label>
+  <input type="text" pInputText id="email" [(ngModel)]="member.email" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.email">El email es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Provincia</label>
+  <input type="text" pInputText id="province" [(ngModel)]="member.province" required autofocus />
+  <small class="p-error" *ngIf="submitted && !member.province">La provincia es requerida.</small>
+</div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveMember()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '40%' }"></p-confirmDialog>
+
