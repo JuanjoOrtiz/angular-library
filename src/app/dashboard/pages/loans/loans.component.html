@@ -1,1 +1,98 @@
-<p>loans works!</p>
+<div class="card">
+  <p-toast></p-toast>
+  <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      </ng-template>
+
+  </p-toolbar>
+
+  <p-table
+      #dt
+      [value]="loans"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['title', 'author', 'publicationDate','gender', 'editorial', 'shelf']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Listado de libros</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+              <th pSortableColumn="Titulo" id="book" style="min-width:15rem">Titulo <p-sortIcon field="title"></p-sortIcon></th>
+
+              <th pSortableColumn="Socio" id="member" style="min-width:15rem">Socio <p-sortIcon field="member"></p-sortIcon></th>
+
+              <th pSortableColumn="Fecha de prestamo"  id="loanDate" style="min-width:15rem">Fecha de prestamo <p-sortIcon field="loanDate"></p-sortIcon></th>
+
+              <th pSortableColumn="Fecha de devolución" id="returnDate" style="min-width:15rem">Fecha de devolución<p-sortIcon field="returnDate"></p-sortIcon></th>
+
+
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-loan>
+          <tr>
+              <td>{{ loan.book }}</td>
+              <td>{{ loan.member }}</td>
+              <td>{{ loan.loandate }}</td>
+              <td>{{ loan.returnDate }}</td>
+
+
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-success mr-2" (click)="editloan(loan)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-warning " (click)="deleteloan(loan)"></button>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">Hay un total de  {{ loans ? loans.length : 0 }} libros.</div>
+      </ng-template>
+  </p-table>
+</div>
+<p-dialog [(visible)]="loanDialog" [style]="{ width: '40%' }" header="Detalle del libro" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Titulo</label>
+      <input type="text" pInputText id="book" [(ngModel)]="loan.book" required autofocus />
+      <small class="p-error" *ngIf="submitted && !loan.book">El libro es requerido.</small>
+  </div>
+  <div class="field">
+    <label for="name">Socio</label>
+    <input type="text" pInputText id="member" [(ngModel)]="loan.member" required autofocus />
+    <small class="p-error" *ngIf="submitted && !loan.member">El socio es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Fecha de publicación</label>
+  <input type="text" pInputText id="loanDate" [(ngModel)]="loan.loanDate" required autofocus />
+  <small class="p-error" *ngIf="submitted && !loan.loanDate">La fecha del prestamo es requerida.</small>
+</div>
+<div class="field">
+  <label for="name">Fecha de la devolución</label>
+  <input type="text" pInputText id="returnDate" [(ngModel)]="loan.returnDate" required autofocus />
+  <small class="p-error" *ngIf="submitted && !loan.returnDate">El fecha de la devolución es requerida.</small>
+</div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveloan()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '40%' }"></p-confirmDialog>
+
