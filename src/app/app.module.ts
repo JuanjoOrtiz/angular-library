@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'
 import { DashboardModule } from './dashboard/dashboard.module';
 
 
@@ -12,13 +13,14 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    DashboardModule,
+    HttpClientModule,
     RouterModule,
-    DashboardModule
-
-
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

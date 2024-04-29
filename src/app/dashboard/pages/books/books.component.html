@@ -1,0 +1,110 @@
+<div class="card">
+  <p-toast></p-toast>
+  <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      </ng-template>
+
+  </p-toolbar>
+
+  <p-table
+      #dt
+      [value]="books"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['title', 'author', 'publicationDate','gender', 'editorial', 'shelf']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Listado de libros</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+              <th pSortableColumn="Titulo" style="min-width:15rem">Titulo <p-sortIcon field="title"></p-sortIcon></th>
+
+              <th pSortableColumn="Autor" style="min-width:15rem">Autor <p-sortIcon field="author"></p-sortIcon></th>
+
+              <th pSortableColumn="Fecha de publicación" style="min-width:15rem">Fecha de publicación <p-sortIcon field="publicationDate"></p-sortIcon></th>
+
+              <th pSortableColumn="Genero" style="min-width:15rem">Genero<p-sortIcon field="gender"></p-sortIcon></th>
+
+              <th pSortableColumn="Editorial" style="min-width:15rem">Editorial<p-sortIcon field="editorial"></p-sortIcon></th>
+
+              <th pSortableColumn="Estantería" style="min-width:15rem">Estantería<p-sortIcon field="shelf"></p-sortIcon></th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-book>
+          <tr>
+              <td>{{ book.title }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.publicationDate }}</td>
+              <td>{{ book.gender }}</td>
+              <td>{{ book.editorial }}</td>
+              <td>{{ book.shelf }}</td>
+
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-success mr-2" (click)="editbook(book)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-warning " (click)="deletebook(book)"></button>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">Hay un total de  {{ books ? books.length : 0 }} libros.</div>
+      </ng-template>
+  </p-table>
+</div>
+<p-dialog [(visible)]="bookDialog" [style]="{ width: '40%' }" header="Detalle del libro" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Titulo</label>
+      <input type="text" pInputText id="title" [(ngModel)]="book.title" required autofocus />
+      <small class="p-error" *ngIf="submitted && !book.title">El titulo es requerido.</small>
+  </div>
+  <div class="field">
+    <label for="name">Autor</label>
+    <input type="text" pInputText id="author" [(ngModel)]="book.author" required autofocus />
+    <small class="p-error" *ngIf="submitted && !book.author">El autor es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Fecha de publicación</label>
+  <input type="text" pInputText id="publicationDate" [(ngModel)]="book.publicationDate" required autofocus />
+  <small class="p-error" *ngIf="submitted && !book.publicationDate">La fecha de publicación es requerida.</small>
+</div>
+<div class="field">
+  <label for="name">Genero</label>
+  <input type="text" pInputText id="gender" [(ngModel)]="book.gender" required autofocus />
+  <small class="p-error" *ngIf="submitted && !book.gender">El genero es requerido.</small>
+</div>
+<div class="field">
+  <label for="name">Editorial</label>
+  <input type="text" pInputText id="editorial" [(ngModel)]="book.editorial" required autofocus />
+  <small class="p-error" *ngIf="submitted && !book.editorial">La editorial es requerida.</small>
+</div>
+<div class="field">
+  <label for="name">Estanteria</label>
+  <input type="text" pInputText id="shelf" [(ngModel)]="book.shelf" required autofocus />
+  <small class="p-error" *ngIf="submitted && !book.shelf">La estanteria es requerida.</small>
+</div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="savebook()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '40%' }"></p-confirmDialog>
+

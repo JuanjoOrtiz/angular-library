@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SharedModule } from '../shared/shared.module';
+
+import { BookService } from './services/books/book.service';
+
 import { DashboardLayoutComponent } from './layout/dashboard-layout.component';
 import { BooksComponent } from './pages/books/books.component';
-import { SharedModule } from '../shared/shared.module';
 import { LoansComponent } from './pages/loans/loans.component';
 import { MembersComponent } from './pages/members/members.component';
+
 
 
 
@@ -22,6 +26,6 @@ import { MembersComponent } from './pages/members/members.component';
     DashboardRoutingModule,
     SharedModule
   ],
-  providers:[]
+  providers:[BookService]
 })
 export class DashboardModule { }
