@@ -19,6 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     DashboardModule,
     HttpClientModule,
     RouterModule,
+
   ],
 
   providers: [],

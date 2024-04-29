@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
-import { BookService } from './services/books/book.service';
 
 import { DashboardLayoutComponent } from './layout/dashboard-layout.component';
 import { BooksComponent } from './pages/books/books.component';
@@ -26,6 +25,6 @@ import { MembersComponent } from './pages/members/members.component';
     DashboardRoutingModule,
     SharedModule
   ],
-  providers:[BookService]
+  providers:[]
 })
 export class DashboardModule { }
