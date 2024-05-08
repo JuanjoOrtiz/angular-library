@@ -10,19 +10,21 @@
   <p-table
       #dt
       [value]="books"
-      [rows]="10"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
       [paginator]="true"
-      [globalFilterFields]="['title', 'author', 'publicationDate','gender', 'editorial', 'shelf']"
-      [tableStyle]="{ 'min-width': '75rem' }"
+      [globalFilterFields]="['title', 'author', 'publicationDate','gender', 'publisher', 'shelf']"
+      [tableStyle]="{ 'min-width': '80%' }"
       [rowHover]="true"
       dataKey="id"
+      (onPage)="pageChange($event)"
       currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
       [showCurrentPageReport]="true"
   >
 
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
-            <h5 class="m-0">Listado de libros</h5>
+            <h3 class="m-0">Listado de libros</h3>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search..." />
@@ -40,7 +42,7 @@
 
               <th pSortableColumn="Genero" id="gender" style="min-width:15rem">Genero<p-sortIcon field="gender"></p-sortIcon></th>
 
-              <th pSortableColumn="Editorial" id="editorial" style="min-width:15rem">Editorial<p-sortIcon field="editorial"></p-sortIcon></th>
+              <th pSortableColumn="publisher" id="publisher" style="min-width:15rem">publisher<p-sortIcon field="publisher"></p-sortIcon></th>
 
               <th pSortableColumn="Estantería" id="shelf" style="min-width:15rem">Estantería<p-sortIcon field="shelf"></p-sortIcon></th>
 
@@ -50,9 +52,9 @@
           <tr>
               <td>{{ book.title }}</td>
               <td>{{ book.author }}</td>
-              <td>{{ book.publicationDate }}</td>
+              <td>{{ book.publicationDate | date: 'dd/MM/yyyy' }}</td>
               <td>{{ book.gender }}</td>
-              <td>{{ book.editorial }}</td>
+              <td>{{ book.publisher }}</td>
               <td>{{ book.shelf }}</td>
 
               <td>
@@ -89,9 +91,9 @@
   <small class="p-error" *ngIf="submitted && !book.gender">El genero es requerido.</small>
 </div>
 <div class="field">
-  <label for="name">Editorial</label>
-  <input type="text" pInputText id="editorial" [(ngModel)]="book.editorial" required autofocus />
-  <small class="p-error" *ngIf="submitted && !book.editorial">La editorial es requerida.</small>
+  <label for="name">publisher</label>
+  <input type="text" pInputText id="publisher" [(ngModel)]="book.publisher" required autofocus />
+  <small class="p-error" *ngIf="submitted && !book.publisher">La publisher es requerida.</small>
 </div>
 <div class="field">
   <label for="name">Estanteria</label>

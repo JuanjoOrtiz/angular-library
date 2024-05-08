@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Book} from '../../interfaces/books-response';
+import { Book, BooksResponse} from '../../interfaces/books-response';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
@@ -22,6 +22,10 @@ export class BooksComponent implements OnInit {
 
   book!: Book;
 
+  first = 0;
+
+  rows = 10;
+
   submitted: boolean = false;
 
   private bookService = inject(BookService);
@@ -29,7 +33,9 @@ export class BooksComponent implements OnInit {
   private confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
-    this.bookService.getBooks().subscribe((books) => (this.books = books));
+    this.bookService.getBooks().subscribe((response: BooksResponse) => {
+      this.books = response.content;
+    });
   }
 
   openNew() {
@@ -121,4 +127,30 @@ export class BooksComponent implements OnInit {
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
+
+  next() {
+    this.first = this.first + this.rows;
+}
+
+prev() {
+    this.first = this.first - this.rows;
+}
+
+reset() {
+    this.first = 0;
+}
+
+pageChange(event:any) {
+    this.first = event.first;
+    this.rows = event.rows;
+}
+
+isLastPage(): boolean {
+    return this.books ? this.first === this.books.length - this.rows : true;
+}
+
+isFirstPage(): boolean {
+    return this.books ? this.first === 0 : true;
+}
 }

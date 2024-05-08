@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Book } from '../../interfaces/books-response';
+import { catchError, map, Observable, of } from 'rxjs';
+import { Book, BooksResponse } from '../../interfaces/books-response';
 import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
@@ -11,11 +11,10 @@ export class BookService {
 
   private baseUrl = environment.baseUrl;
 
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.baseUrl}/books`);
-
+  getBooks(): Observable<BooksResponse> {
+    return this.http.get<BooksResponse>(`${this.baseUrl}/books`);
   }
 
   getBookbyId(id: string): Observable<Book> {
