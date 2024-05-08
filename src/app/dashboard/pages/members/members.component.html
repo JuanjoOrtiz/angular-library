@@ -10,19 +10,21 @@
   <p-table
       #dt
       [value]="members"
-      [rows]="10"
+      [rows]="5"
       [paginator]="true"
-      [globalFilterFields]="['memberShipNumber', 'name', 'publicationDate','gender', 'publisher', 'shelf']"
-      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [globalFilterFields]="['memberShipNumber', 'name', 'publicationDate','mobile', 'address', 'email','province']"
+      [tableStyle]="{ 'min-width': '80%' }"
       [rowHover]="true"
       dataKey="id"
+      (onPage)="pageChange($event)"
       currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
       [showCurrentPageReport]="true"
   >
 
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
-            <h5 class="m-0">Listado de Socios</h5>
+            <h3 class="m-0">Listado de Socios</h3>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search..." />
@@ -52,10 +54,10 @@
       </ng-template>
       <ng-template pTemplate="body" let-member>
           <tr>
-              <td>{{ member.memberShipNumber }}</td>
+              <td>{{ member.membershipnumber }}</td>
               <td>{{ member.name }}</td>
               <td>{{ member.nif }}</td>
-              <td>{{ member.brithdayDate }}</td>
+              <td>{{ member.brithdayDate | date: 'dd/mm/yyyy'}}</td>
               <td>{{ member.mobile }}</td>
               <td>{{ member.address }}</td>
               <td>{{ member.email }}</td>
