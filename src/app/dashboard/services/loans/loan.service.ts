@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Loan } from '../../interfaces/loans-response';
+import { Loan, LoanResponse } from '../../interfaces/loans-response';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
@@ -12,8 +12,8 @@ export class LoanService {
 
   http = inject(HttpClient);
 
-  getLoans(): Observable<Loan[]> {
-    return this.http.get<Loan[]>(`${this.baseUrl}/loans`);
+  getLoans(): Observable<LoanResponse> {
+    return this.http.get<LoanResponse>(`${this.baseUrl}/loans`);
 
   }
 

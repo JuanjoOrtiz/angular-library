@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Loan } from '../../interfaces/loans-response';
+import { Loan, LoanResponse } from '../../interfaces/loans-response';
 import { LoanService } from '../../services/loans/loan.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -22,6 +22,10 @@ export class LoansComponent implements OnInit{
 
   loan!: Loan;
 
+  first = 0;
+
+  rows = 10;
+
   submitted: boolean = false;
 
   private LoanService = inject(LoanService);
@@ -29,7 +33,9 @@ export class LoansComponent implements OnInit{
   private confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
-    this.LoanService.getLoans().subscribe((loans) => (this.loans = loans));
+    this.LoanService.getLoans().subscribe((response: LoanResponse) => {this.loans = response.content
+      console.log(this.loans)
+    });
   }
   openNew() {
     this.loan = {};
@@ -120,4 +126,29 @@ export class LoansComponent implements OnInit{
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
+  next() {
+    this.first = this.first + this.rows;
+}
+
+prev() {
+    this.first = this.first - this.rows;
+}
+
+reset() {
+    this.first = 0;
+}
+
+pageChange(event:any) {
+    this.first = event.first;
+    this.rows = event.rows;
+}
+
+isLastPage(): boolean {
+    return this.loans ? this.first === this.loans.length - this.rows : true;
+}
+
+isFirstPage(): boolean {
+    return this.loans ? this.first === 0 : true;
+}
 }
