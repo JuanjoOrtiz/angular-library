@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Member } from '../../interfaces/members-response';
+import { Member, MemberResponse } from '../../interfaces/members-response';
 import { MemberService } from '../../services/members/member.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -22,6 +22,9 @@ export class MembersComponent implements OnInit{
 
   member!: Member;
 
+  first = 0;
+  rows = 10;
+
   submitted: boolean = false;
 
   private memberService = inject(MemberService);
@@ -30,7 +33,10 @@ export class MembersComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.memberService.getMembers().subscribe((members) => (this.members = members));
+    this.memberService.getMembers().subscribe((response: MemberResponse) => {
+      this.members = response.content
+      console.log(this.members)
+  });
   }
   openNew() {
     this.member = {};
@@ -121,4 +127,30 @@ export class MembersComponent implements OnInit{
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
+
+  next() {
+    this.first = this.first + this.rows;
+}
+
+prev() {
+    this.first = this.first - this.rows;
+}
+
+reset() {
+    this.first = 0;
+}
+
+pageChange(event:any) {
+    this.first = event.first;
+    this.rows = event.rows;
+}
+
+isLastPage(): boolean {
+    return this.members ? this.first === this.members.length - this.rows : true;
+}
+
+isFirstPage(): boolean {
+    return this.members ? this.first === 0 : true;
+}
 }

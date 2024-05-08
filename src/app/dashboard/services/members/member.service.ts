@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Member } from '../../interfaces/members-response';
+import { Member, MemberResponse } from '../../interfaces/members-response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class MemberService {
 
   http = inject(HttpClient);
 
-  getMembers(): Observable<Member[]> {
-    return this.http.get<Member[]>(`${this.baseUrl}/members`);
+  getMembers(): Observable<MemberResponse> {
+    return this.http.get<MemberResponse>(`${this.baseUrl}/members`);
 
   }
 
